@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="PATH" value="/log/imooc/course/eureka"></property>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>
+                %d{mm:ss.SSS} %highlight(%-5level) %blue (%-30logger{30}:%-4line) %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
+    <appender name="TRACE_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${PATH}/trace.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${PATH}/trace.%d{yyyy-MM-dd}.%i</fileNamePattern>
+        </rollingPolicy>
+    </appender>
+</configuration>
