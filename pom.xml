@@ -6,6 +6,7 @@
 	<modules>
 		<module>eureka</module>
         <module>system</module>
+        <module>gateway</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -23,10 +24,10 @@
 		<spring-cloud.version>2020.0.1</spring-cloud.version>
 	</properties>
 	<dependencies>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
