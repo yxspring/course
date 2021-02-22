@@ -4,6 +4,6 @@
 <mapper namespace="com.yxs.system.mapper.TestMapper">
     <!--resultType是说查询的结果映射到那个类里面-->
     <select id="list" resultType="com.yxs.system.domain.Test">
-        select 'id','name' from test
+        select id,name from test
     </select>
 </mapper>
