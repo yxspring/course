@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yxs.TestMapper">
+<mapper namespace="com.yxs.server.mapper.TestMapper">
     <!--resultType是说查询的结果映射到那个类里面-->
-    <select id="list" resultType="com.yxs.Test">
+    <select id="list" resultType="com.yxs.server.domain.Test">
         select id,name from test
     </select>
 </mapper>
