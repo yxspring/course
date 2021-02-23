@@ -1,8 +1,7 @@
 package com.yxs.system.controller;
 
-import com.yxs.system.domain.Test;
-import com.yxs.system.service.TestService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yxs.server.domain.Test;
+import com.yxs.server.service.TestService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
