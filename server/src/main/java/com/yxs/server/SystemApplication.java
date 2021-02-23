@@ -4,11 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.core.env.Environment;
 
 @SpringBootApplication
-@EnableEurekaClient
 @MapperScan("com.yxs.system.mapper")
 public class SystemApplication {
 	private static final Logger Log= LoggerFactory.getLogger(SystemApplication.class);
