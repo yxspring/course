@@ -15,7 +15,7 @@ public class TestController {
 
     @RequestMapping("/test")
     public String test(){
-        return "success";
+        return "success ok";
     }
     @RequestMapping("/list")
     public List<Test> list(){
