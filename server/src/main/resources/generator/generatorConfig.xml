@@ -28,13 +28,13 @@
         </jdbcConnection>
 
         <!-- domain类的位置 -->
-        <javaModelGenerator targetProject="src\main\java" targetPackage="com.course.server.domain"/>
+        <javaModelGenerator targetProject="src\main\java" targetPackage="com.yxs.server.domain"/>
 
         <!-- mapper xml的位置 -->
         <sqlMapGenerator targetProject="src\main\resources" targetPackage="mapper"/>
 
         <!-- mapper类的位置 -->
-        <javaClientGenerator targetProject="src\main\java" targetPackage="com.course.server.mapper" type="XMLMAPPER" />
+        <javaClientGenerator targetProject="src\main\java" targetPackage="com.yxs.server.mapper" type="XMLMAPPER" />
 
             <table tableName="test" domainObjectName="Test"/>
 <!--        <table tableName="chapter" domainObjectName="Chapter"/>-->
