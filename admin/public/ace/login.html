@@ -34,7 +34,6 @@
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
 	</head>
-
 	<body class="login-layout">
 		<div class="main-container">
 			<div class="main-content">
@@ -272,23 +271,10 @@
 					</div><!-- /.col -->
 				</div><!-- /.row -->
 			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
+		</div>
 		<script src="assets/js/jquery-2.1.4.min.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-
-		<!-- inline scripts related to this page -->
+		<script src="assets/js/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");</script>
 		<script type="text/javascript">
 			jQuery(function($) {
 			 $(document).on('click', '.toolbar a[data-target]', function(e) {
@@ -298,10 +284,6 @@
 				$(target).addClass('visible');//show target
 			 });
 			});
-			
-			
-			
-			//you don't need this, just used for changing background
 			jQuery(function($) {
 			 $('#btn-login-dark').on('click', function(e) {
 				$('body').attr('class', 'login-layout');
