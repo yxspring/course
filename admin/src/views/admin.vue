@@ -844,29 +844,25 @@
                 <i class="ace-icon fa fa-home home-icon"></i>
                 <a href="#">Home</a>
               </li>
-
               <li>
                 <a href="#">Other Pages</a>
               </li>
               <li class="active">Blank Page</li>
-            </ul><!-- /.breadcrumb -->
-
+            </ul>
             <div class="nav-search" id="nav-search">
               <form class="form-search">
-								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-									<i class="ace-icon fa fa-search nav-search-icon"></i>
-								</span>
+                  <span class="input-icon">
+                      <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+                      <i class="ace-icon fa fa-search nav-search-icon"></i>
+                  </span>
               </form>
-            </div><!-- /.nav-search -->
+            </div>
           </div>
-
           <div class="page-content">
             <div class="ace-settings-container" id="ace-settings-container">
               <div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
                 <i class="ace-icon fa fa-cog bigger-130"></i>
               </div>
-
               <div class="ace-settings-box clearfix" id="ace-settings-box">
                 <div class="pull-left width-50">
                   <div class="ace-settings-item">
@@ -932,7 +928,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-
+                <router-view/>
                 <!-- PAGE CONTENT ENDS -->
               </div><!-- /.col -->
             </div><!-- /.row -->
