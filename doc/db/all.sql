@@ -1,8 +1,8 @@
-drop table if exists `test`;
-create table `test` (
-                        id varchar(20) not null primary key,
-                        name varchar(255) null
-);
-
-INSERT INTO courseimooc.test (id, name) VALUES ('1', 'java');
-INSERT INTO courseimooc.test (id, name) VALUES ('2', 'system');
+/******************** 大章 *********************/
+drop table if exists `chapter`;
+create table `chapter` (
+    `id` char(8) not null comment 'ID',
+    `course_id` char(8)  comment '课程ID',
+    `name` char(50)  comment '名称',
+    primary key (`id`)
+) engine=innodb default charset=utf8mb4 comment ='大章';

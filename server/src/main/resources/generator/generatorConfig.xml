@@ -36,8 +36,8 @@
         <!-- mapper类的位置 -->
         <javaClientGenerator targetProject="src\main\java" targetPackage="com.yxs.server.mapper" type="XMLMAPPER" />
 
-            <table tableName="test" domainObjectName="Test"/>
-<!--        <table tableName="chapter" domainObjectName="Chapter"/>-->
+        <!--                <table tableName="test" domainObjectName="Test"/>-->
+            <table tableName="chapter" domainObjectName="Chapter"/>
 <!--        <table tableName="section" domainObjectName="Section"/>-->
 <!--        <table tableName="course" domainObjectName="Course"/>-->
 <!--        <table tableName="course_content" domainObjectName="CourseContent"/>-->
