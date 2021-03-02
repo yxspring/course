@@ -18,7 +18,7 @@ public class TestController {
     public String test(){
         return "success ok";
     }
-    @RequestMapping("/list")
+    @RequestMapping("/tsetlist")
     public List<Test> list(){
         return testService.list();
     }
