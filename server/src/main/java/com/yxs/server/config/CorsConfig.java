@@ -1,4 +1,4 @@
-package com.yxs.server.config;
+/*package com.yxs.server.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -17,4 +17,4 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .maxAge(3600);//1小时内不需要再预检（发OPTIONS请求）
     }
-}
+}*/
