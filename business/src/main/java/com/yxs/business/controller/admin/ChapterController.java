@@ -2,6 +2,7 @@ package com.yxs.business.controller.admin;
 import com.yxs.server.dto.ChapterDto;
 import com.yxs.server.dto.PageDto;
 import com.yxs.server.service.ChapterService;
+import com.yxs.server.util.ResponseDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,16 +19,20 @@ public class ChapterController {
     private ChapterService chapterService;
 
     @RequestMapping("/list")
-    public PageDto list(@RequestBody PageDto pageDto){
+    public ResponseDto list(@RequestBody PageDto pageDto){
         Log.info("pageDto:{}",pageDto);
+        ResponseDto responseDto=new ResponseDto();
         chapterService.list(pageDto);
-        return pageDto;
+        responseDto.setContent(pageDto);
+        return responseDto;
     }
     @RequestMapping("/save")
-    public ChapterDto save(@RequestBody ChapterDto chapterDto){
+    public ResponseDto save(@RequestBody ChapterDto chapterDto){
         Log.info("chapterDto:{}",chapterDto);
+        ResponseDto responseDto=new ResponseDto();
         chapterService.save(chapterDto);
-        return chapterDto;
+        responseDto.setContent(chapterDto);
+        return responseDto;
     }
 
 }
