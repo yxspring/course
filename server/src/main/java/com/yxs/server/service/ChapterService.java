@@ -7,9 +7,11 @@ import com.yxs.server.domain.ChapterExample;
 import com.yxs.server.dto.ChapterDto;
 import com.yxs.server.dto.PageDto;
 import com.yxs.server.mapper.ChapterMapper;
+import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -27,20 +29,32 @@ public class ChapterService {
         List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
         PageInfo<Chapter>pageInfo=new PageInfo<Chapter>(chapterList);
         pageDto.setTotal(pageInfo.getTotal());
-        List<ChapterDto> chapterDtoList = new ArrayList<ChapterDto>();
+        List<ChapterDto> chapterDtoList= CopyUtil.copy(chapterList,ChapterDto.class);
+       /* List<ChapterDto> chapterDtoList = new ArrayList<ChapterDto>();
         for (Chapter chapter:chapterList) {
             ChapterDto chapterDto=new ChapterDto();
             BeanUtils.copyProperties(chapter,chapterDto);
             chapterDtoList.add(chapterDto);
-        }
+        } */
         pageDto.setList(chapterDtoList);
     }
 
     public void save(ChapterDto chapterDto){
-        chapterDto.setId(UuidUtil.getShortUuid());
-        Chapter chapter=new Chapter();
-        BeanUtils.copyProperties(chapterDto,chapter);
+        Chapter chapter=CopyUtil.copy(chapterDto,Chapter.class);
+        if (StringUtils.isEmpty(chapterDto.getId())){
+            this.insert(chapter);
+        }else{
+            this.update(chapter);
+        }
+    }
+    private void insert(Chapter chapter){
+        chapter.setId(UuidUtil.getShortUuid());
+        /*Chapter chapter=new Chapter();
+        BeanUtils.copyProperties(chapterDto,chapter);*/
         chapterMapper.insert(chapter);
+    }
+    private void update(Chapter chapter){
+        chapterMapper.updateByPrimaryKey(chapter);
     }
 
 }
