@@ -100,10 +100,12 @@
 
             list(page){
                 let _this = this;
+                Loading.show();
                 _this.$ajax.post("http://127.0.0.1:9000/business/admin/chapter/list",{
                     page:page,
                     pageSize:_this.$refs.pagination.size,
                 }).then((response)=>{
+                    Loading.hide();
                     console.log("查询大章列表结果："+response);
                     let resp=response.data;
                     _this.chapters=resp.content.list;
@@ -113,7 +115,9 @@
 
             save(page){
                 let _this = this;
+                Loading.show();
                 _this.$ajax.post("http://127.0.0.1:9000/business/admin/chapter/save",_this.chapter).then((response)=>{
+                    Loading.hide();
                     let resp=response.data;
                     if (resp.success){
                         $("#form-modal").modal("hide");
@@ -133,6 +137,7 @@
 
             del(id){
                 let _this = this;
+                Loading.show();
                 Swal.fire({
                     title: '确定要删除吗?',
                     icon: 'warning',
@@ -141,6 +146,7 @@
                     cancelButtonColor: '#d33',
                     confirmButtonText: '删除'
                 }).then((result) => {
+                    Loading.hide();
                     if (result.isConfirmed) {
                         _this.$ajax.delete("http://127.0.0.1:9000/business/admin/chapter/delete/"+id).then((response)=>{
                             let resp=response.data;
