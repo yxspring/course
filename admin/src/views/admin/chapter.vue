@@ -31,7 +31,7 @@
                         <button class="btn btn-xs btn-info" v-on:click="edit(chapter)">
                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                         </button>
-                        <button class="btn btn-xs btn-danger" v-on:click="del()">
+                        <button class="btn btn-xs btn-danger" v-on:click="del(chapter.id)">
                             <i class="ace-icon fa fa-trash-o bigger-120"></i>
                         </button>
                     </div>
@@ -129,12 +129,12 @@
                 _this.chapter=$.extend({},chapter);
                 $("#form-modal").modal("show");
             },
-            del(){
+
+            del(id){
                 let _this = this;
-                _this.$ajax.post("http://127.0.0.1:9000/business/admin/chapter/save",_this.chapter).then((response)=>{
+                _this.$ajax.delete("http://127.0.0.1:9000/business/admin/chapter/delete/"+id).then((response)=>{
                     let resp=response.data;
                     if (resp.success){
-                        $("#form-modal").modal("hide");
                         _this.list(1);
                     }else{
                         alert("删除失败！");
