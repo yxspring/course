@@ -118,8 +118,9 @@
                     if (resp.success){
                         $("#form-modal").modal("hide");
                         _this.list(1);
+                        toast.success("保存成功！");
                     }else{
-                        alert("保存失败！");
+                        toast.error("保存失败！");
                     }
                 })
             },
@@ -145,11 +146,9 @@
                             let resp=response.data;
                             if (resp.success){
                                 _this.list(1);
-                                Swal.fire(
-                                    '删除成功!'
-                                )
+                                toast.success("删除成功！")
                             }else{
-                                alert("删除失败！");
+                                toast.error("删除失败！")
                             }
                         });
                     }

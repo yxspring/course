@@ -28,7 +28,12 @@ public class ChapterController {
     public ResponseDto save(@RequestBody ChapterDto chapterDto){
         Log.info("chapterDto:{}",chapterDto);
         ResponseDto responseDto=new ResponseDto();
-        chapterService.save(chapterDto);
+        try{
+            chapterService.save(chapterDto);
+        }catch (Exception e){
+            Log.error("保存大章出错："+e.toString());
+            responseDto.setSuccess(false);
+        }
         responseDto.setContent(chapterDto);
         return responseDto;
     }
