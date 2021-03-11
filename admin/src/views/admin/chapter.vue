@@ -122,9 +122,9 @@
                     if (resp.success){
                         $("#form-modal").modal("hide");
                         _this.list(1);
-                        toast.success("保存成功！");
+                        Toast.success("保存成功！");
                     }else{
-                        toast.error("保存失败！");
+                        Toast.error("保存失败！");
                     }
                 })
             },
@@ -137,8 +137,20 @@
 
             del(id){
                 let _this = this;
-                Loading.show();
-                Swal.fire({
+                Confirm.show("删除大章之后不可恢复，确定要删除吗？",function () {
+                    Loading.show();
+                    _this.$ajax.delete("http://127.0.0.1:9000/business/admin/chapter/delete/"+id).then((response)=>{
+                        Loading.hide();
+                        let resp=response.data;
+                        if (resp.success){
+                            _this.list(1);
+                            Toast.success("删除成功！")
+                        }else{
+                            Toast.error("删除失败！")
+                        }
+                    });
+                });
+            /*    Swal.fire({
                     title: '确定要删除吗?',
                     icon: 'warning',
                     showCancelButton: true,
@@ -152,13 +164,13 @@
                             let resp=response.data;
                             if (resp.success){
                                 _this.list(1);
-                                toast.success("删除成功！")
+                                Toast.success("删除成功！")
                             }else{
-                                toast.error("删除失败！")
+                                Toast.error("删除失败！")
                             }
                         });
                     }
-                })
+                })*/
             },
         }
     }
