@@ -115,12 +115,12 @@
 
             save(page){
                 let _this = this;
-                /*校验数据是否正确*/
+                /*校验数据是否正确
                 if (!Validator.require(_this.chapter.name,"名称")||
                     !Validator.require(_this.chapter.courseId,"课程ID")||
                     !Validator.length(_this.chapter.courseId,"课程ID",1,8)){
                     return;
-                }
+                }*/
                 Loading.show();
                 _this.$ajax.post("http://127.0.0.1:9000/business/admin/chapter/save",_this.chapter).then((response)=>{
                     Loading.hide();
@@ -130,7 +130,7 @@
                         _this.list(1);
                         Toast.success("保存成功！");
                     }else{
-                        Toast.error("保存失败！");
+                        Toast.warning(resp.message);
                     }
                 })
             },
@@ -150,9 +150,9 @@
                         let resp=response.data;
                         if (resp.success){
                             _this.list(1);
-                            Toast.success("删除成功！")
+                            Toast.success("删除成功！");
                         }else{
-                            Toast.error("删除失败！")
+                            Toast.warning(resp.message);
                         }
                     });
                 });
