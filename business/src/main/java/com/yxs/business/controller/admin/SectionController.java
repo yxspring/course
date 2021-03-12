@@ -20,7 +20,7 @@ public class SectionController {
     @Resource
     private SectionService sectionService;
     /**
-     * 查询大章列表
+     * 查询小节列表
      * */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto){
@@ -30,18 +30,18 @@ public class SectionController {
         return responseDto;
     }
     /**
-     * 保存大章
+     * 保存小节
      * */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody SectionDto sectionDto){
-
+        
         ResponseDto responseDto=new ResponseDto();
         sectionService.save(sectionDto);
         responseDto.setContent(sectionDto);
         return responseDto;
     }
     /**
-     * 删除大章
+     * 删除小节
      * */
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
