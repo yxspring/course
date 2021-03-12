@@ -1,4 +1,4 @@
-package com.yxs.business.controller.admin;
+package com.yxs.${module}.controller.admin;
 import com.yxs.server.dto.${Domain}Dto;
 import com.yxs.server.dto.PageDto;
 import com.yxs.server.exception.ValidatorException;
@@ -16,11 +16,11 @@ import javax.annotation.Resource;
 @RequestMapping("/admin/${domain}")
 public class ${Domain}Controller {
     private static final Logger Log = LoggerFactory.getLogger(${Domain}Controller.class);
-    private static final String BUSINESS_NAME="大章";
+    private static final String BUSINESS_NAME="${tableNameCn}";
     @Resource
     private ${Domain}Service ${domain}Service;
     /**
-     * 查询大章列表
+     * 查询${tableNameCn}列表
      * */
     @PostMapping("/list")
     public ResponseDto list(@RequestBody PageDto pageDto){
@@ -30,7 +30,7 @@ public class ${Domain}Controller {
         return responseDto;
     }
     /**
-     * 保存大章
+     * 保存${tableNameCn}
      * */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody ${Domain}Dto ${domain}Dto){
@@ -41,7 +41,7 @@ public class ${Domain}Controller {
         return responseDto;
     }
     /**
-     * 删除大章
+     * 删除${tableNameCn}
      * */
     @DeleteMapping("/delete/{id}")
     public ResponseDto delete(@PathVariable String id){
