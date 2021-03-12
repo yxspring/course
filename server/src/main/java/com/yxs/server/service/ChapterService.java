@@ -9,12 +9,9 @@ import com.yxs.server.dto.PageDto;
 import com.yxs.server.mapper.ChapterMapper;
 import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,11 +42,13 @@ public class ChapterService {
             this.update(chapter);
         }
     }
+    /*插入*/
     private void insert(Chapter chapter){
         chapter.setId(UuidUtil.getShortUuid());
 
         chapterMapper.insert(chapter);
     }
+    /*更新*/
     private void update(Chapter chapter){
         chapterMapper.updateByPrimaryKey(chapter);
     }
