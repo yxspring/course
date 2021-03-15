@@ -48,6 +48,7 @@ CREATE TABLE `section` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='小节';
 INSERT INTO `section`(`id`, `title`, `course_id`, `chapter_id`, `video`, `time`, `charge`, `sort`, `created_at`, `update_at`) VALUES ('00000001', '测试小节', '00000001', '00000000', '', 500, 'F', 1, '2021-03-12 09:29:42', '2021-03-12 09:29:42');
 /********************** 课程 ************************/
+
 DROP TABLE IF	EXISTS `course`;
 CREATE TABLE `course` (
   `id` char(8) NOT NULL DEFAULT '' COMMENT 'id',
