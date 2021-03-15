@@ -47,3 +47,21 @@ CREATE TABLE `section` (
                            PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='小节';
 INSERT INTO `section`(`id`, `title`, `course_id`, `chapter_id`, `video`, `time`, `charge`, `sort`, `created_at`, `update_at`) VALUES ('00000001', '测试小节', '00000001', '00000000', '', 500, 'F', 1, '2021-03-12 09:29:42', '2021-03-12 09:29:42');
+/********************** 课程 ************************/
+DROP TABLE IF	EXISTS `course`;
+CREATE TABLE `course` (
+  `id` char(8) NOT NULL DEFAULT '' COMMENT 'id',
+  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+  `summary` varchar(2000) DEFAULT NULL COMMENT '概述',
+  `time` int(11) DEFAULT '0' COMMENT '时长|单位秒',
+  `privce` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '价格(元)',
+  `image` varchar(100) DEFAULT NULL COMMENT '封面',
+  `level` char(1) DEFAULT NULL COMMENT '级别|ONE("1","初级"),TWO("1","初级"),THREE("1","初级")',
+  `charge` char(1) DEFAULT NULL COMMENT '收费|CHARGE("C","收费"),FREE("F","免费")',
+  `status` char(1) DEFAULT NULL COMMENT '状态|PUBLISH("P","发布"),DRAFT("D","草稿")',
+  `enroll` int(11) DEFAULT '0' COMMENT '报名数',
+  `sort` int(11) DEFAULT NULL COMMENT '顺序',
+  `created_at` datetime DEFAULT NULL COMMENT '创建时间',
+  `updated_at` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程表';
