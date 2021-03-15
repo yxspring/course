@@ -12,50 +12,62 @@ import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class SectionService {
 
-    @Resource
+ @Resource
     private SectionMapper sectionMapper;
-    /*
-    * 大章查询
-    * */
-    public void list(PageDto pageDto){
-        PageHelper.startPage(pageDto.getPage(),pageDto.getPageSize());
+
+    /**
+     * 列表查询
+     */
+    public void list(PageDto pageDto) {
+        PageHelper.startPage(pageDto.getPage(), pageDto.getPageSize());
         SectionExample sectionExample = new SectionExample();
+        sectionExample.setOrderByClause("sort asc");
         List<Section> sectionList = sectionMapper.selectByExample(sectionExample);
-        PageInfo<Section>pageInfo=new PageInfo<Section>(sectionList);
+        PageInfo<Section> pageInfo = new PageInfo<>(sectionList);
         pageDto.setTotal(pageInfo.getTotal());
-        List<SectionDto> sectionDtoList= CopyUtil.copy(sectionList,SectionDto.class);
+        List<SectionDto> sectionDtoList = CopyUtil.copy(sectionList, SectionDto.class);
         pageDto.setList(sectionDtoList);
     }
-    /*
-    * 大章保存
-    * */
-    public void save(SectionDto sectionDto){
-        Section section=CopyUtil.copy(sectionDto,Section.class);
-        if (StringUtils.isEmpty(sectionDto.getId())){
+
+    /**
+     * 保存，id有值时更新，无值时新增
+     */
+    public void save(SectionDto sectionDto) {
+        Section section = CopyUtil.copy(sectionDto, Section.class);
+        if (StringUtils.isEmpty(sectionDto.getId())) {
             this.insert(section);
-        }else{
+        } else {
             this.update(section);
         }
     }
-    /*插入*/
-    private void insert(Section section){
-        section.setId(UuidUtil.getShortUuid());
 
+    /**
+     * 新增
+     */
+    private void insert(Section section) {
+        Date now = new Date();
+        section.setCreatedAt(now);
+        section.setId(UuidUtil.getShortUuid());
         sectionMapper.insert(section);
     }
-    /*更新*/
-    private void update(Section section){
+
+    /**
+     * 更新
+     */
+    private void update(Section section) {
         sectionMapper.updateByPrimaryKey(section);
     }
-    /*
-    * 删除大章
-    * */
-    public  void delete(String id){
+
+    /**
+     * 删除
+     */
+    public void delete(String id) {
         sectionMapper.deleteByPrimaryKey(id);
     }
 

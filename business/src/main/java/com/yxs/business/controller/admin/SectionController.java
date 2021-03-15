@@ -1,7 +1,6 @@
 package com.yxs.business.controller.admin;
-import com.yxs.server.dto.SectionDto;
 import com.yxs.server.dto.PageDto;
-import com.yxs.server.exception.ValidatorException;
+import com.yxs.server.dto.SectionDto;
 import com.yxs.server.service.SectionService;
 import com.yxs.server.util.ResponseDto;
 import com.yxs.server.util.ValidatorUtil;
@@ -34,7 +33,10 @@ public class SectionController {
      * */
     @PostMapping("/save")
     public ResponseDto save(@RequestBody SectionDto sectionDto){
-        
+        // 保存校验
+            ValidatorUtil.require(sectionDto.getTitle(), "标题");
+            ValidatorUtil.length(sectionDto.getTitle(), "标题", 1, 50);
+            ValidatorUtil.length(sectionDto.getVideo(), "视频", 1, 200);
         ResponseDto responseDto=new ResponseDto();
         sectionService.save(sectionDto);
         responseDto.setContent(sectionDto);
