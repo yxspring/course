@@ -48,14 +48,13 @@ CREATE TABLE `section` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='小节';
 INSERT INTO `section`(`id`, `title`, `course_id`, `chapter_id`, `video`, `time`, `charge`, `sort`, `created_at`, `update_at`) VALUES ('00000001', '测试小节', '00000001', '00000000', '', 500, 'F', 1, '2021-03-12 09:29:42', '2021-03-12 09:29:42');
 /********************** 课程 ************************/
-
 DROP TABLE IF	EXISTS `course`;
 CREATE TABLE `course` (
   `id` char(8) NOT NULL DEFAULT '' COMMENT 'id',
   `name` varchar(50) DEFAULT NULL COMMENT '名称',
   `summary` varchar(2000) DEFAULT NULL COMMENT '概述',
   `time` int(11) DEFAULT '0' COMMENT '时长|单位秒',
-  `privce` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '价格(元)',
+  `price` decimal(8,2)  DEFAULT '0.00' COMMENT '价格(元)',
   `image` varchar(100) DEFAULT NULL COMMENT '封面',
   `level` char(1) DEFAULT NULL COMMENT '级别|ONE("1","初级"),TWO("1","初级"),THREE("1","初级")',
   `charge` char(1) DEFAULT NULL COMMENT '收费|CHARGE("C","收费"),FREE("F","免费")',
@@ -65,4 +64,7 @@ CREATE TABLE `course` (
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程';
+
+INSERT INTO courseimooc.course (id, name, summary, time, privce, image, level, charge, status, enroll, sort, created_at, updated_at)
+VALUES ('00000001', '测试课程01', '这是一门测试课程', 7200, 19.9, '', 0, 'C', 'D', 100, 0, now(), now());
