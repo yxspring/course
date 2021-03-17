@@ -155,9 +155,9 @@
       return {
         course: {},
         courses: [],
-        COURSE_LEVEL:COURSE_LEVEL,
-        COURSE_CHARGE:COURSE_CHARGE,
-        COURSE_STATUS:COURSE_STATUS
+        COURSE_LEVEL: COURSE_LEVEL,
+        COURSE_CHARGE: COURSE_CHARGE,
+        COURSE_STATUS: COURSE_STATUS,
       }
     },
     mounted: function() {

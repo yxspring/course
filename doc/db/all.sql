@@ -56,9 +56,9 @@ CREATE TABLE `course` (
   `time` int(11) DEFAULT '0' COMMENT '时长|单位秒',
   `price` decimal(8,2)  DEFAULT '0.00' COMMENT '价格(元)',
   `image` varchar(100) DEFAULT NULL COMMENT '封面',
-  `level` char(1) DEFAULT NULL COMMENT '级别|ONE("1","初级"),TWO("1","初级"),THREE("1","初级")',
-  `charge` char(1) DEFAULT NULL COMMENT '收费|CHARGE("C","收费"),FREE("F","免费")',
-  `status` char(1) DEFAULT NULL COMMENT '状态|PUBLISH("P","发布"),DRAFT("D","草稿")',
+  `level` char(1) DEFAULT NULL COMMENT '级别|枚举[CourseLevelEnum]:ONE("1","初级"),TWO("1","初级"),THREE("1","初级")',
+  `charge` char(1) DEFAULT NULL COMMENT '收费|枚举[CourseChargeEnum]:CHARGE("C","收费"),FREE("F","免费")',
+  `status` char(1) DEFAULT NULL COMMENT '状态|枚举[CourseStatusEnum]:PUBLISH("P","发布"),DRAFT("D","草稿")',
   `enroll` int(11) DEFAULT '0' COMMENT '报名数',
   `sort` int(11) DEFAULT NULL COMMENT '顺序',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
@@ -66,5 +66,5 @@ CREATE TABLE `course` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='课程';
 
-INSERT INTO courseimooc.course (id, name, summary, time, privce, image, level, charge, status, enroll, sort, created_at, updated_at)
+INSERT INTO courseimooc.course (id, name, summary, time, price, image, level, charge, status, enroll, sort, created_at, updated_at)
 VALUES ('00000001', '测试课程01', '这是一门测试课程', 7200, 19.9, '', 0, 'C', 'D', 100, 0, now(), now());
