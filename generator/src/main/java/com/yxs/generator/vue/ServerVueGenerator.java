@@ -1,5 +1,3 @@
-package com.yxs.generator.server;
-
 import com.yxs.generator.util.DbUtil;
 import com.yxs.generator.util.Field;
 import com.yxs.generator.util.FreemarkerUtil;
