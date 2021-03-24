@@ -1,7 +1,7 @@
 package com.yxs.business.controller.admin;
+
 import com.yxs.server.dto.ChapterDto;
-import com.yxs.server.dto.PageDto;
-import com.yxs.server.exception.ValidatorException;
+import com.yxs.server.dto.ChapterPageDto;
 import com.yxs.server.service.ChapterService;
 import com.yxs.server.util.ResponseDto;
 import com.yxs.server.util.ValidatorUtil;
@@ -23,10 +23,11 @@ public class ChapterController {
      * 查询大章列表
      * */
     @PostMapping("/list")
-    public ResponseDto list(@RequestBody PageDto pageDto){
+    public ResponseDto list(@RequestBody ChapterPageDto chapterPageDto){
         ResponseDto responseDto=new ResponseDto();
-        chapterService.list(pageDto);
-        responseDto.setContent(pageDto);
+        ValidatorUtil.require(chapterPageDto.getCourseId(),"课程ID");
+        chapterService.list(chapterPageDto);
+        responseDto.setContent(chapterPageDto);
         return responseDto;
     }
     /**

@@ -5,12 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.yxs.server.domain.Chapter;
 import com.yxs.server.domain.ChapterExample;
 import com.yxs.server.dto.ChapterDto;
-import com.yxs.server.dto.PageDto;
+import com.yxs.server.dto.ChapterPageDto;
 import com.yxs.server.mapper.ChapterMapper;
 import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -22,14 +23,18 @@ public class ChapterService {
     /*
     * 大章查询
     * */
-    public void list(PageDto pageDto){
-        PageHelper.startPage(pageDto.getPage(),pageDto.getPageSize());
+    public void list(ChapterPageDto chapterPageDto){
+        PageHelper.startPage(chapterPageDto.getPage(),chapterPageDto.getPageSize());
         ChapterExample chapterExample = new ChapterExample();
+        ChapterExample.Criteria criteria = chapterExample.createCriteria();
+        if (!StringUtils.isEmpty(chapterPageDto.getCourseId())){
+            criteria.andCourseIdEqualTo(chapterPageDto.getCourseId());
+        }
         List<Chapter> chapterList = chapterMapper.selectByExample(chapterExample);
         PageInfo<Chapter>pageInfo=new PageInfo<Chapter>(chapterList);
-        pageDto.setTotal(pageInfo.getTotal());
+        chapterPageDto.setTotal(pageInfo.getTotal());
         List<ChapterDto> chapterDtoList= CopyUtil.copy(chapterList,ChapterDto.class);
-        pageDto.setList(chapterDtoList);
+        chapterPageDto.setList(chapterDtoList);
     }
     /*
     * 大章保存

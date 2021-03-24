@@ -4,13 +4,13 @@ import java.util.List;
 
 public class PageDto<T> {
     //当前页
-    private int page;
+    public int page;
     //每页的大小
-    private int pageSize;
+    public int pageSize;
     //总条数
-    private long total;
+    public long total;
     //查询的结果集
-    private List<T> list;
+    public List<T> list;
 
     public int getPage() {
         return page;
