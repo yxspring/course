@@ -1,5 +1,10 @@
 <template>
     <div>
+        <h4 class="lighter">
+            <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+            <router-link to="/business/course" class="pink"> {{course.name}} </router-link>
+        </h4>
+        <hr>
         <p>
             <router-link to="/business/course" class="btn btn-white btn-default btn-round">
                 <i class="ace-icon fa fa-edit"></i>
@@ -22,7 +27,7 @@
             <tr>
                 <th>ID</th>
                 <th>大章名称</th>
-                <th>课程ID</th>
+               <!-- <th>课程ID</th>-->
                 <th>操作</th>
             </tr>
             </thead>
@@ -30,14 +35,17 @@
             <tr v-for="chapter in chapters">
                 <td>{{chapter.id}}</td>
                 <td>{{chapter.name}}</td>
-                <td>{{chapter.courseId}}</td>
+                <!--<td>{{chapter.courseId}}</td>-->
                 <td>
                     <div class="hidden-sm hidden-xs btn-group">
+                        <button class="btn btn-xs btn-info" v-on:click="toSection(chapter)">
+                            小节
+                        </button>
                         <button class="btn btn-xs btn-info" v-on:click="edit(chapter)">
-                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                            编辑
                         </button>
                         <button class="btn btn-xs btn-danger" v-on:click="del(chapter.id)">
-                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                            删除
                         </button>
                     </div>
                 </td>
@@ -171,6 +179,13 @@
                         }
                     });
                 });
+            },
+            /*跳转到相应的小节*/
+            toSection(chapter){
+                let _this = this;
+                SessionStorage.set("chapter",chapter);
+                /*跳转页面*/
+                _this.$router.push("/business/section")
             },
         }
     }
