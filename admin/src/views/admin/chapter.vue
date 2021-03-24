@@ -1,6 +1,12 @@
 <template>
     <div>
         <p>
+
+            <router-link to="/business/course" class="btn btn-white btn-default btn-round">
+                <i class="ace-icon fa fa-edit"></i>
+                返回课程
+            </router-link>
+            &nbsp;
             <button v-on:click="add()" class="btn btn-white btn-default btn-round">
                 <i class="ace-icon fa fa-edit"></i>
                 新增
@@ -16,16 +22,16 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>课程id</th>
-                <th>课程名称</th>
+                <th>大章名称</th>
+                <th>课程ID</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="chapter in chapters">
                 <td>{{chapter.id}}</td>
-                <td>{{chapter.courseId}}</td>
                 <td>{{chapter.name}}</td>
+                <td>{{chapter.courseId}}</td>
                 <td>
                     <div class="hidden-sm hidden-xs btn-group">
                         <button class="btn btn-xs btn-info" v-on:click="edit(chapter)">
@@ -83,11 +89,18 @@
         data:function(){
             return {
                 chapter:{},
-                chapters:[]
+                chapters:[],
+                course:{},
             }
         },
         mounted:function () {
             let _this=this;
+            let course=SessionStorage.get("course")||{};
+            if (Tool.isEmpty(course)){
+                _this.router.push("/welcome");
+            }
+            _this.course=course;
+
             _this.list(1);
             // this.$parent.activeSidebar("business-chapter-sidebar");
         },
