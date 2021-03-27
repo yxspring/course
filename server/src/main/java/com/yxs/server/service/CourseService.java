@@ -7,19 +7,27 @@ import com.yxs.server.domain.CourseExample;
 import com.yxs.server.dto.CourseDto;
 import com.yxs.server.dto.PageDto;
 import com.yxs.server.mapper.CourseMapper;
+import com.yxs.server.mapper.my.MyCourseMapper;
 import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class CourseService {
-
- @Resource
+    private static final Logger Log = LoggerFactory.getLogger(CourseService.class);
+    @Resource
     private CourseMapper courseMapper;
+
+    @Resource
+    private MyCourseMapper myCourseMapper;
+
 
     /**
      * 列表查询
@@ -71,6 +79,14 @@ public class CourseService {
      */
     public void delete(String id) {
         courseMapper.deleteByPrimaryKey(id);
+    }
+
+    /*
+    更新课程时长
+    * */
+    public void updateTime(String courseId){
+        Log.info("更新课程时长：{}",courseId);
+        myCourseMapper.updateTime(courseId);
     }
 
 }

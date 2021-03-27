@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxs.server.mapper.my.MyCourseMapper">
+    <update id="updateTime">
+        update course c set `time`=
+         (
+         select sum(s.time)
+             from section s
+             where s.course_id=#{courseId}
+         )where c.id=#{courseId}
+    </update>
+</mapper>
