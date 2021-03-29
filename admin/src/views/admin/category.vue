@@ -47,11 +47,6 @@
             <i class="ace-icon fa fa-edit"></i>
             新增二级
           </button>
-          &nbsp;
-          <button v-on:click="all()" class="btn btn-white btn-default btn-round">
-            <i class="ace-icon fa fa-refresh"></i>
-            刷新
-          </button>
         </p>
         <table id="level2-table" class="table  table-bordered table-hover">
           <thead>
@@ -198,6 +193,12 @@
               }
             }
           }
+          _this.level2=[];
+          //对当前一级分类中选中的表格触发一次点击事件，以刷新二级菜单列表
+          //注意：页面的渲染需要等vue绑定好变量后才做，所以增加延时100ms
+          setTimeout(function () {
+            $("tr.active").trigger("click")
+          },100)
         })
       },
 
