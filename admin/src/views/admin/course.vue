@@ -245,7 +245,7 @@
         Loading.show();
         _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course/list', {
           page: page,
-          size: _this.$refs.pagination.size,
+          pageSize: _this.$refs.pagination.size,
         }).then((response)=>{
           Loading.hide();
           let resp = response.data;
