@@ -11,8 +11,8 @@ import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +20,17 @@ public class CategoryService {
 
  @Resource
     private CategoryMapper categoryMapper;
+
+    /**
+     * 列表查询
+     */
+    public List<CategoryDto> all() {
+        CategoryExample categoryExample = new CategoryExample();
+        categoryExample.setOrderByClause("sort asc");
+        List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
+        List<CategoryDto> categoryDtoList = CopyUtil.copy(categoryList, CategoryDto.class);
+        return categoryDtoList;
+    }
 
     /**
      * 列表查询

@@ -1,7 +1,7 @@
 package com.yxs.business.controller.admin;
+
 import com.yxs.server.dto.CategoryDto;
 import com.yxs.server.dto.PageDto;
-import com.yxs.server.exception.ValidatorException;
 import com.yxs.server.service.CategoryService;
 import com.yxs.server.util.ResponseDto;
 import com.yxs.server.util.ValidatorUtil;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
@@ -20,6 +21,16 @@ public class CategoryController {
     @Resource
     private CategoryService categoryService;
     /**
+     * 查询分类列表
+     * */
+    @PostMapping("/all")
+    public ResponseDto all(){
+        ResponseDto responseDto=new ResponseDto();
+        List<CategoryDto> allCategoryList=categoryService.all();
+        responseDto.setContent(allCategoryList);
+        return responseDto;
+    }
+     /**
      * 查询分类列表
      * */
     @PostMapping("/list")
