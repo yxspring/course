@@ -19,9 +19,10 @@ import java.util.List;
 @Service
 public class SectionService {
 
- @Resource
+    @Resource
     private SectionMapper sectionMapper;
-
+    @Resource
+    private CourseService courseService;
     /**
      * 列表查询
      */
@@ -53,6 +54,8 @@ public class SectionService {
         } else {
             this.update(section);
         }
+        //更新时长
+        courseService.updateTime(sectionDto.getCourseId());
     }
 
     /**
