@@ -50,7 +50,7 @@ public class SectionService {
      * 一次操作会更新或修改多张表，为了保持数据一致，增加事务处理
      */
     @Transactional
-    public void save(SectionDto sectionDto) {
+    public void save(SectionDto sectionDto){
         Section section = CopyUtil.copy(sectionDto, Section.class);
         if (StringUtils.isEmpty(sectionDto.getId())) {
             this.insert(section);

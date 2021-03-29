@@ -1,3 +1,5 @@
+package com.yxs.generator.vue;
+
 import com.yxs.generator.util.DbUtil;
 import com.yxs.generator.util.Field;
 import com.yxs.generator.util.FreemarkerUtil;
