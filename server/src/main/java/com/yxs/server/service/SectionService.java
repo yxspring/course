@@ -10,6 +10,7 @@ import com.yxs.server.mapper.SectionMapper;
 import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -46,7 +47,9 @@ public class SectionService {
 
     /**
      * 保存，id有值时更新，无值时新增
+     * 一次操作会更新或修改多张表，为了保持数据一致，增加事务处理
      */
+    @Transactional
     public void save(SectionDto sectionDto) {
         Section section = CopyUtil.copy(sectionDto, Section.class);
         if (StringUtils.isEmpty(sectionDto.getId())) {
