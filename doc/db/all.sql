@@ -166,7 +166,14 @@ INSERT INTO category(`id`, `parent`, `name`, `sort`) VALUES ('00000902', '000009
 INSERT INTO category(`id`, `parent`, `name`, `sort`) VALUES ('00000903', '00000900', 'APPUI设计', 903);
 
 
-
+/*课程分类*/
+drop table if exists `course_category`;
+CREATE TABLE `course_category` (
+       `id` char(8) NOT NULL COMMENT 'id',
+       `course_id` char(8) DEFAULT NULL COMMENT '课程|course.id',
+       `category_id` char(8) DEFAULT NULL COMMENT '分类|course.id',
+       PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='课程分类' ;
 
 
 
