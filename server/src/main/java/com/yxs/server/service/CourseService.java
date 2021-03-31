@@ -28,7 +28,8 @@ public class CourseService {
     @Resource
     private MyCourseMapper myCourseMapper;
 
-
+    @Resource
+    private CourseCategoryService courseCategoryService;
     /**
      * 列表查询
      */
@@ -53,6 +54,7 @@ public class CourseService {
         } else {
             this.update(course);
         }
+        courseCategoryService.savaBatch(course.getId(),courseDto.getCategorys());
     }
 
     /**

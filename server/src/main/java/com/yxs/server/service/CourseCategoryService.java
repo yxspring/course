@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yxs.server.domain.CourseCategory;
 import com.yxs.server.domain.CourseCategoryExample;
+import com.yxs.server.dto.CategoryDto;
 import com.yxs.server.dto.CourseCategoryDto;
 import com.yxs.server.dto.PageDto;
 import com.yxs.server.mapper.CourseCategoryMapper;
@@ -11,8 +12,8 @@ import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -68,4 +69,20 @@ public class CourseCategoryService {
         courseCategoryMapper.deleteByPrimaryKey(id);
     }
 
+    /**
+    *批量保存课程分类
+    */
+    public void savaBatch(String courseId, List<CategoryDto>dtoList){
+        CourseCategoryExample example = new CourseCategoryExample();
+        example.createCriteria().andCourseIdEqualTo(courseId);
+        courseCategoryMapper.deleteByExample(example);
+
+        for (CategoryDto cd:dtoList){
+            CourseCategory courseCategory = new CourseCategory();
+            courseCategory.setId(UuidUtil.getShortUuid());
+            courseCategory.setCourseId(courseId);
+            courseCategory.setCategoryId(cd.getId());
+            insert(courseCategory);
+        }
+    }
 }
