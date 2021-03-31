@@ -11,6 +11,7 @@ import com.yxs.server.mapper.CourseCategoryMapper;
 import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -72,6 +73,7 @@ public class CourseCategoryService {
     /**
     *批量保存课程分类
     */
+    @Transactional
     public void savaBatch(String courseId, List<CategoryDto>dtoList){
         CourseCategoryExample example = new CourseCategoryExample();
         example.createCriteria().andCourseIdEqualTo(courseId);
@@ -84,5 +86,12 @@ public class CourseCategoryService {
             courseCategory.setCategoryId(cd.getId());
             insert(courseCategory);
         }
+    }
+    /*根据某一课程Id查询该课程的分类*/
+    public List<CourseCategoryDto> listByCourseId(String courseId){
+        CourseCategoryExample example = new CourseCategoryExample();
+        example.createCriteria().andCourseIdEqualTo(courseId);
+        List<CourseCategory> courseCategoryList = courseCategoryMapper.selectByExample(example);
+        return CopyUtil.copy(courseCategoryList,CourseCategoryDto.class);
     }
 }

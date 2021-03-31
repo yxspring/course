@@ -1,6 +1,8 @@
 package com.yxs.business.controller.admin;
+import com.yxs.server.dto.CourseCategoryDto;
 import com.yxs.server.dto.CourseDto;
 import com.yxs.server.dto.PageDto;
+import com.yxs.server.service.CourseCategoryService;
 import com.yxs.server.service.CourseService;
 import com.yxs.server.util.ResponseDto;
 import com.yxs.server.util.ValidatorUtil;
@@ -9,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
@@ -18,6 +21,8 @@ public class CourseController {
     private static final String BUSINESS_NAME="课程";
     @Resource
     private CourseService courseService;
+    @Resource
+    private CourseCategoryService courseCategoryService;
     /**
      * 查询课程列表
      * */
@@ -51,5 +56,14 @@ public class CourseController {
         courseService.delete(id);
         return responseDto;
     }
-
+    /**
+     * 查找课程下所有分类
+     * */
+    @PostMapping("/list-category/{courseId}")
+    public ResponseDto listCategory(@PathVariable(value = "courseId") String courseId){
+        ResponseDto responseDto = new ResponseDto();
+        List<CourseCategoryDto> dtoList = courseCategoryService.listByCourseId(courseId);
+        responseDto.setContent(dtoList);
+        return responseDto;
+    }
 }
