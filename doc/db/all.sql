@@ -175,6 +175,14 @@ CREATE TABLE `course_category` (
        PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='课程分类' ;
 
+/*课程内容*/
+drop table if exists `course_content`;
+CREATE TABLE `course_content` (
+      `id` char(8) NOT NULL COMMENT '课程id',
+      `content` mediumblob NOT NULL COMMENT '课程内容',
+      PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='课程内容';
+
 
 
 
