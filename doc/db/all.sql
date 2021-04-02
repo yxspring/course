@@ -183,6 +183,19 @@ CREATE TABLE `course_content` (
       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='课程内容';
 
+/*讲师*/
+DROP TABLE IF EXISTS `teacher`;
+CREATE TABLE `teacher` (
+                           `id` char(8) NOT NULL COMMENT 'id',
+                           `name` varchar(50) DEFAULT NULL COMMENT '姓名',
+                           `nickname` varchar(50) DEFAULT NULL COMMENT '昵称',
+                           `image` varchar(100) DEFAULT NULL COMMENT '头像',
+                           `position` varchar(50) DEFAULT NULL COMMENT '职位',
+                           `motto` varchar(50) DEFAULT NULL COMMENT '座右铭',
+                           `intro` varchar(500) DEFAULT NULL COMMENT '简介',
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='讲师';
+
 
 
 
