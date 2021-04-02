@@ -3,7 +3,7 @@ package com.yxs.server.domain;
 public class CourseContent {
     private String id;
 
-    private byte[] content;
+    private String content;
 
     public String getId() {
         return id;
@@ -13,11 +13,11 @@ public class CourseContent {
         this.id = id;
     }
 
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

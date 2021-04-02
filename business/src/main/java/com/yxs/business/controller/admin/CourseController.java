@@ -1,5 +1,6 @@
 package com.yxs.business.controller.admin;
 import com.yxs.server.dto.CourseCategoryDto;
+import com.yxs.server.dto.CourseContentDto;
 import com.yxs.server.dto.CourseDto;
 import com.yxs.server.dto.PageDto;
 import com.yxs.server.service.CourseCategoryService;
@@ -64,6 +65,23 @@ public class CourseController {
         ResponseDto responseDto = new ResponseDto();
         List<CourseCategoryDto> dtoList = courseCategoryService.listByCourseId(courseId);
         responseDto.setContent(dtoList);
+        return responseDto;
+    }
+    /*查询某课程的内容*/
+    @GetMapping("/find-content/{id}")
+    public ResponseDto findContent(@PathVariable(value = "id") String id){
+        ResponseDto responseDto = new ResponseDto();
+        CourseContentDto content = courseService.findContent(id);
+        responseDto.setContent(content);
+        return responseDto;
+    }
+    /**
+     * 保存某课程的内容
+     * */
+    @PostMapping("/save-content")
+    public ResponseDto saveContent(@RequestBody CourseContentDto contentDto){
+        ResponseDto responseDto = new ResponseDto();
+        courseService.saveContent(contentDto);
         return responseDto;
     }
 }

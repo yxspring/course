@@ -3,9 +3,12 @@ package com.yxs.server.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yxs.server.domain.Course;
+import com.yxs.server.domain.CourseContent;
 import com.yxs.server.domain.CourseExample;
+import com.yxs.server.dto.CourseContentDto;
 import com.yxs.server.dto.CourseDto;
 import com.yxs.server.dto.PageDto;
+import com.yxs.server.mapper.CourseContentMapper;
 import com.yxs.server.mapper.CourseMapper;
 import com.yxs.server.mapper.my.MyCourseMapper;
 import com.yxs.server.util.CopyUtil;
@@ -30,6 +33,9 @@ public class CourseService {
     private MyCourseMapper myCourseMapper;
 
     @Resource
+    private CourseContentMapper courseContentMapper;
+
+    @Resource
     private CourseCategoryService courseCategoryService;
     /**
      * 列表查询
@@ -44,7 +50,6 @@ public class CourseService {
         List<CourseDto> courseDtoList = CopyUtil.copy(courseList, CourseDto.class);
         pageDto.setList(courseDtoList);
     }
-
     /**
      * 保存，id有值时更新，无值时新增
      */
@@ -58,7 +63,6 @@ public class CourseService {
         }
         courseCategoryService.savaBatch(course.getId(),courseDto.getCategorys());
     }
-
     /**
      * 新增
      */
@@ -69,7 +73,6 @@ public class CourseService {
         course.setId(UuidUtil.getShortUuid());
         courseMapper.insert(course);
     }
-
     /**
      * 更新
      */
@@ -77,20 +80,39 @@ public class CourseService {
         course.setUpdatedAt(new Date());
         courseMapper.updateByPrimaryKey(course);
     }
-
     /**
      * 删除
      */
     public void delete(String id) {
         courseMapper.deleteByPrimaryKey(id);
     }
-
     /*
     更新课程时长
     * */
     public void updateTime(String courseId){
         Log.info("更新课程时长：{}",courseId);
         myCourseMapper.updateTime(courseId);
+    }
+    /*
+    * 查找课程内容
+    * */
+    public CourseContentDto findContent(String id){
+        CourseContent courseContent = courseContentMapper.selectByPrimaryKey(id);
+        if (courseContent==null){
+            return null;
+        }
+        return CopyUtil.copy(courseContent,CourseContentDto.class);
+    }
+    /*
+    * 保存课程内容，包含新增和修改
+    * */
+    public int saveContent(CourseContentDto contentDto){
+        CourseContent content = CopyUtil.copy(contentDto, CourseContent.class);
+        int i = courseContentMapper.updateByPrimaryKeyWithBLOBs(content);
+        if (i==0){
+            i = courseContentMapper.insert(content);
+        }
+        return i;
     }
 
 }
