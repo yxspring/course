@@ -1,8 +1,5 @@
 package com.yxs.business.controller.admin;
-import com.yxs.server.dto.CourseCategoryDto;
-import com.yxs.server.dto.CourseContentDto;
-import com.yxs.server.dto.CourseDto;
-import com.yxs.server.dto.PageDto;
+import com.yxs.server.dto.*;
 import com.yxs.server.service.CourseCategoryService;
 import com.yxs.server.service.CourseService;
 import com.yxs.server.util.ResponseDto;
@@ -82,6 +79,14 @@ public class CourseController {
     public ResponseDto saveContent(@RequestBody CourseContentDto contentDto){
         ResponseDto responseDto = new ResponseDto();
         courseService.saveContent(contentDto);
+        return responseDto;
+    }
+    /*更新排序*/
+    @PostMapping("/sort")
+    public ResponseDto sort(@RequestBody SortDto sortDto){
+        Log.info("更新排序");
+        ResponseDto responseDto=new ResponseDto();
+        courseService.sort(sortDto);
         return responseDto;
     }
 }

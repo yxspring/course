@@ -8,6 +8,7 @@ import com.yxs.server.domain.CourseExample;
 import com.yxs.server.dto.CourseContentDto;
 import com.yxs.server.dto.CourseDto;
 import com.yxs.server.dto.PageDto;
+import com.yxs.server.dto.SortDto;
 import com.yxs.server.mapper.CourseContentMapper;
 import com.yxs.server.mapper.CourseMapper;
 import com.yxs.server.mapper.my.MyCourseMapper;
@@ -61,6 +62,7 @@ public class CourseService {
         } else {
             this.update(course);
         }
+        //批量保存课程分类
         courseCategoryService.savaBatch(course.getId(),courseDto.getCategorys());
     }
     /**
@@ -114,5 +116,19 @@ public class CourseService {
         }
         return i;
     }
-
+    /*
+    *更新排序
+    * */
+    @Transactional
+    public void sort(SortDto sortDto){
+        //修改当前记录的排序值
+        myCourseMapper.updateSort(sortDto);
+        //如果排序值变大
+        if (sortDto.getNewSort()>sortDto.getOldSort()){
+            myCourseMapper.moveSortsForward(sortDto);
+        }
+        if (sortDto.getOldSort()>sortDto.getNewSort()){
+            myCourseMapper.moveSortsBackward(sortDto);
+        }
+    }
 }
