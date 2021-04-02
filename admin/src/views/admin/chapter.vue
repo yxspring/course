@@ -111,6 +111,7 @@
 
             _this.list(1);
             // this.$parent.activeSidebar("business-chapter-sidebar");
+            _this.$parent.activeSidebar("business-course-sidebar");
         },
         methods:{
             /*新增*/
