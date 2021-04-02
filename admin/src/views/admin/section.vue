@@ -145,8 +145,8 @@
     },
     mounted: function() {
       let _this = this;
-      _this.course=SessionStorage.get("course")||{};
-      _this.chapter=SessionStorage.get("chapter")||{};
+      _this.course=SessionStorage.get(SESSION_KEY_COURSE)||{};
+      _this.chapter=SessionStorage.get(SESSION_KEY_CHAPTER)||{};
       _this.$refs.pagination.size = 5;
       if (Tool.isEmpty(_this.course)||Tool.isEmpty(_this.chapter)){
         _this.$router.push("/welcome");

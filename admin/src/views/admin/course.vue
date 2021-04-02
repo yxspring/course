@@ -271,7 +271,7 @@
        */
       toChapter(course) {
         let _this = this;
-        SessionStorage.set("course",course);
+        SessionStorage.set(SESSION_KEY_COURSE,course);
         /*跳转页面*/
         _this.$router.push("/business/chapter")
       },

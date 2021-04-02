@@ -103,7 +103,7 @@
         },
         mounted:function () {
             let _this=this;
-            let course=SessionStorage.get("course")||{};
+            let course=SessionStorage.get(SESSION_KEY_COURSE)||{};
             if (Tool.isEmpty(course)){
                 _this.router.push("/welcome");
             }
@@ -184,7 +184,7 @@
             /*跳转到相应的小节*/
             toSection(chapter){
                 let _this = this;
-                SessionStorage.set("chapter",chapter);
+                SessionStorage.set(SESSION_KEY_CHAPTER,chapter);
                 /*跳转页面*/
                 _this.$router.push("/business/section")
             },

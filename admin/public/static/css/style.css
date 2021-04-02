@@ -1,0 +1,4 @@
+/*所有的表格文字居中*/
+table .td{
+    vertical-align: middle !important;
+}
