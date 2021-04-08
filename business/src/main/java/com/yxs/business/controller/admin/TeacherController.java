@@ -1,7 +1,7 @@
 package com.yxs.business.controller.admin;
-import com.yxs.server.dto.TeacherDto;
+
 import com.yxs.server.dto.PageDto;
-import com.yxs.server.exception.ValidatorException;
+import com.yxs.server.dto.TeacherDto;
 import com.yxs.server.service.TeacherService;
 import com.yxs.server.util.ResponseDto;
 import com.yxs.server.util.ValidatorUtil;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
@@ -55,5 +56,14 @@ public class TeacherController {
         teacherService.delete(id);
         return responseDto;
     }
-
+    /**
+     * 查询所有的讲师
+     * */
+    @PostMapping("/all")
+    public ResponseDto all(){
+        ResponseDto responseDto=new ResponseDto();
+        List<TeacherDto> allTeacherList=teacherService.all();
+        responseDto.setContent(allTeacherList);
+        return responseDto;
+    }
 }

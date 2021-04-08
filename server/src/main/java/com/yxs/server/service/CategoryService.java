@@ -29,8 +29,7 @@ public class CategoryService {
         CategoryExample categoryExample = new CategoryExample();
         categoryExample.setOrderByClause("sort asc");
         List<Category> categoryList = categoryMapper.selectByExample(categoryExample);
-        List<CategoryDto> categoryDtoList = CopyUtil.copy(categoryList, CategoryDto.class);
-        return categoryDtoList;
+        return CopyUtil.copy(categoryList, CategoryDto.class);
     }
 
     /**

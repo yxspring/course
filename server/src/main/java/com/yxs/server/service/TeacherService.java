@@ -4,15 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yxs.server.domain.Teacher;
 import com.yxs.server.domain.TeacherExample;
-import com.yxs.server.dto.TeacherDto;
 import com.yxs.server.dto.PageDto;
+import com.yxs.server.dto.TeacherDto;
 import com.yxs.server.mapper.TeacherMapper;
 import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,5 +67,12 @@ public class TeacherService {
     public void delete(String id) {
         teacherMapper.deleteByPrimaryKey(id);
     }
-
+    /**
+     * 列表查询
+     */
+    public List<TeacherDto> all() {
+        TeacherExample teacherExample = new TeacherExample();
+        List<Teacher> teacherList = teacherMapper.selectByExample(teacherExample);
+        return CopyUtil.copy(teacherList, TeacherDto.class);
+    }
 }
