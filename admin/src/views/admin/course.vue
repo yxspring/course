@@ -514,4 +514,10 @@
    .caption h3{
      font-size: 20px;
    }
+
+   @media(max-width: 1199px){
+     .caption h3{
+       font-size: 16px;
+     }
+   }
 </style>
