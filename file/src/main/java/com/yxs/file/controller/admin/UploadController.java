@@ -16,6 +16,7 @@ import java.io.IOException;
 @RestController
 public class UploadController {
     private static final Logger log= LoggerFactory.getLogger(UploadController.class);
+    private static final String BUSINESS_NAME = "文件上传";
 
     @RequestMapping("/upload")
     public ResponseDto upload(@RequestParam MultipartFile file ) throws IOException {
