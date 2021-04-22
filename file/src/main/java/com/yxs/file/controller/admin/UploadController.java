@@ -31,6 +31,7 @@ public class UploadController {
         File dest = new File(fullPath);
         file.transferTo(dest);
         log.info(dest.getAbsolutePath());
+        responseDto.setContent("http://127.0.0.1:9000/file/f/oragin/"+key+"-"+fileName);
         return responseDto;
     }
 }
