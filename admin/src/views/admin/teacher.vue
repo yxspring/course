@@ -79,7 +79,11 @@
                 <div class="col-sm-10">
                   <!--<input v-model="teacher.image" class="form-control">-->
                   <input type="file" v-on:change="uploadImage()" id="file-upload-input">
-                  <img v-bind:src="teacher.image" class="img-responsive">
+                  <div v-show="teacher.image" class="row">
+                    <div class="col-md-4">
+                      <img v-bind:src="teacher.image" class="img-responsive">
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
