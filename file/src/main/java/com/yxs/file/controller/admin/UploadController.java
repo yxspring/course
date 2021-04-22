@@ -27,7 +27,7 @@ public class UploadController {
         //保存文件到本地
         String fileName=file.getOriginalFilename();
         String key=UuidUtil.getShortUuid();
-        String fullPath="E:/Person Files/Java/course/doc/oragin/"+key+"-"+fileName;
+        String fullPath="F:/personal files/JavaLearning/Spring/master-spring/the project/course/doc/oragin/"+key+"-"+fileName;
         File dest = new File(fullPath);
         file.transferTo(dest);
         log.info(dest.getAbsolutePath());
