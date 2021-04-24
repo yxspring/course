@@ -77,7 +77,12 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">头像</label>
                 <div class="col-sm-10">
-                  <file v-bind:text="'上传头像'" v-bind:id="'file-upload'" v-bind:suffixs="['jpg','png','jpeg']" v-bind:after-upload="afterUpload"></file>
+                  <file v-bind:text="'上传头像'"
+                        v-bind:id="'file-upload'"
+                        v-bind:suffixs="['jpg','png','jpeg']"
+                        v-bind:after-upload="afterUpload"
+                        v-bind="FILE_USE.TEACHER.key"
+                  ></file>
                   <div v-show="teacher.image" class="row">
                     <div class="col-md-4">
                       <img v-bind:src="teacher.image" class="img-responsive">
@@ -125,6 +130,7 @@
       return {
         teacher: {},
         teachers: [],
+        FILE_USE:FILE_USE
       }
     },
     mounted: function() {

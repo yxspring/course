@@ -1,6 +1,7 @@
 package com.yxs.file.controller.admin;
 
 import com.yxs.server.dto.FileDto;
+import com.yxs.server.enums.FileUseEnum;
 import com.yxs.server.service.FileService;
 import com.yxs.server.util.ResponseDto;
 import com.yxs.server.util.UuidUtil;
@@ -30,16 +31,22 @@ public class UploadController {
     @Value("${file.domain}")
     private String FILE_DOMAIN;
     @RequestMapping("/upload")
-    public ResponseDto upload(@RequestParam MultipartFile file ) throws IOException {
+    public ResponseDto upload(@RequestParam MultipartFile file,String use) throws IOException {
         ResponseDto responseDto = new ResponseDto();
         String key=UuidUtil.getShortUuid();
-        log.info("文件开始上传:{}",file);
+        String fileName=file.getOriginalFilename();
+        String suffix=fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
         log.info(file.getOriginalFilename());
         log.info(String.valueOf(file.getSize()));
         //保存文件到本地
-        String fileName=file.getOriginalFilename();
-        String suffix=fileName.substring(fileName.lastIndexOf(".")+1).toLowerCase();
-        String path="teacher/"+key+"."+suffix;
+        FileUseEnum useEnum = FileUseEnum.getByCode(use);
+        //如果文件夹不存在就创建
+        String dir=useEnum.name().toLowerCase();
+        File fullDir = new File(FILE_PATH + dir);
+        if (!fullDir.exists()){
+            fullDir.mkdir();
+        }
+        String path=dir+File.separator+key+"."+suffix;
         String fullPath=FILE_PATH+path;
         File dest = new File(fullPath);
         file.transferTo(dest);
@@ -49,7 +56,7 @@ public class UploadController {
         fileDto.setName(fileName);
         fileDto.setSize(Math.toIntExact(file.getSize()));
         fileDto.setSuffix(suffix);
-        fileDto.setUse("");
+        fileDto.setUse(use);
         fileService.save(fileDto);
         responseDto.setContent(FILE_DOMAIN+path);
         return responseDto;

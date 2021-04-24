@@ -22,6 +22,9 @@
             suffixs:{
                 default:['jpg','png','jpeg']
             },
+            use:{
+                default:""
+            },
             afterUpload: {
                 type: Function,
                 default: null
@@ -56,7 +59,8 @@
                     return;
                 }
                 //key:"file"必须和后端controller参数名一致
-                formData.append('file',document.querySelector('#file-upload-input').files[0]);
+                formData.append('file',file);
+                formData.append('use',_this.use);
                 Loading.show();
                 _this.$ajax.post(process.env.VUE_APP_SERVER+'/file/admin/upload',formData).then((response)=>{
                     Loading.hide();
