@@ -51,7 +51,21 @@ let formatSecond = (value) => {
 function PrefixInteger(num, length) {
     return (Array(length).join('0') + num).slice(-length);
 }
+/*
+* 格式化文件的大小
+* */
+let formatFileSize = (value) => {
+    value = value || 0;
+    let result;
+    if (value>100*1024){
+        result=Math.round(((value / 1024 /1024)*100)/100)+"MB";
+    }else{
+        result=Math.round(((value / 1024 )*100)/100)+"KB";
+    }
+    return result;
+}
 export default {
     optionKV,
-    formatSecond
+    formatSecond,
+    formatFileSize
 }
