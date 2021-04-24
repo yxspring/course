@@ -384,7 +384,7 @@
             </ul>
           </li>
           <!--业务管理-->
-          <li class="active open">
+          <li class="active">
             <a href="#" class="dropdown-toggle">
               <i class="menu-icon fa fa-list"></i>
               <span class="menu-text"> 业务管理 </span>
@@ -410,6 +410,24 @@
                 <router-link to="/business/teacher">
                   <i class="menu-icon fa fa-caret-right"></i>
                   讲师管理
+                </router-link>
+                <b class="arrow"></b>
+              </li>
+            </ul>
+          </li>
+          <!--文件管理-->
+          <li class="active open">
+            <a href="#" class="dropdown-toggle">
+              <i class="menu-icon fa fa-list"></i>
+              <span class="menu-text"> 文件管理 </span>
+              <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+              <li class="active" id="business-category-sidebar">
+                <router-link to="/file/file">
+                  <i class="menu-icon fa fa-caret-right"></i>
+                  文件管理
                 </router-link>
                 <b class="arrow"></b>
               </li>

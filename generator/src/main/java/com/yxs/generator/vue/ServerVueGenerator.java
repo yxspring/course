@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.*;
 
 public class ServerVueGenerator {
-    static String MODULE="business";
+    static String MODULE="file";
     static String toVuePath="admin\\src\\views\\admin\\";
     static String generatorConfigPath="server\\src\\main\\resources\\generator\\generatorConfig.xml";
     public static void main(String[] args) throws Exception {
