@@ -81,7 +81,7 @@
                         v-bind:id="'file-upload'"
                         v-bind:suffixs="['jpg','png','jpeg']"
                         v-bind:after-upload="afterUpload"
-                        v-bind="FILE_USE.TEACHER.key"
+                        v-bind:use="FILE_USE.TEACHER.key"
                   ></file>
                   <div v-show="teacher.image" class="row">
                     <div class="col-md-4">
