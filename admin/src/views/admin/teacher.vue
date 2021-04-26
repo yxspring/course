@@ -227,7 +227,7 @@
         });
       },
       afterUpload(resp){
-        let image=resp.content;
+        let image=resp.content.path;
         this.teacher.image=image;
       }
     }

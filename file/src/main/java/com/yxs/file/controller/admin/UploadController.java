@@ -58,7 +58,8 @@ public class UploadController {
         fileDto.setSuffix(suffix);
         fileDto.setUse(use);
         fileService.save(fileDto);
-        responseDto.setContent(FILE_DOMAIN+path);
+        fileDto.setPath(FILE_DOMAIN+path);
+        responseDto.setContent(fileDto);
         return responseDto;
     }
 }
