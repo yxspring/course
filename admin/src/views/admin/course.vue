@@ -13,6 +13,7 @@
     </p>
 
     <pagination ref="pagination" v-bind:list="list" v-bind:itemCount="8"></pagination>
+
     <div class="row">
       <div v-for="course in courses" class="col-md-4">
         <div class="thumbnail search-thumbnail">
@@ -20,14 +21,21 @@
           <img v-show="course.image" class="media-object" v-bind:src="course.image" />
           <div class="caption">
             <div class="clearfix">
-                <span class="pull-right label label-primary info-label">{{COURSE_LEVEL | optionKV(course.level)}}</span>
-                <span class="pull-right label label-primary info-label">{{COURSE_CHARGE | optionKV(course.charge)}}</span>
-                <span class="pull-right label label-primary info-label">{{COURSE_STATUS | optionKV(course.status)}}</span>
+              <span class="pull-right label label-primary info-label">
+                {{COURSE_LEVEL | optionKV(course.level)}}
+              </span>
+              <span class="pull-right label label-primary info-label">
+                {{COURSE_CHARGE | optionKV(course.charge)}}
+              </span>
+              <span class="pull-right label label-primary info-label">
+                {{COURSE_STATUS | optionKV(course.status)}}
+              </span>
             </div>
 
             <h3 class="search-title">
               <a href="#" class="blue">{{course.name}}</a>
             </h3>
+
             <div v-for="teacher in teachers.filter(t=>{return t.id===course.teacherId})" class="profile-activity clearfix">
               <div>
                 <img v-show="!teacher.image" class="pull-left" src="/ace/assets/images/avatars/avatar5.png">
@@ -37,39 +45,38 @@
                 {{teacher.position}}
               </div>
             </div>
+
             <p>
-              <span class="blue bolder bigger-150">
-                {{course.price}}&nbsp;<i class="fa fa-rmb"></i>
-              </span>
+              <span class="blue bolder bigger-150">{{course.price}}&nbsp;<i class="fa fa-rmb"></i></span>&nbsp;
             </p>
-              <p>{{course.summary}}</p>
-              <p>
-                <span class="badge badge-info">{{course.id}}</span>&nbsp;
-                <span class="badge badge-info">排序：{{course.sort}}</span>&nbsp;
-                <span class="badge badge-info">{{course.time | formatSecond}}</span>
-              </p>
-              <p>
-                <button v-on:click="toChapter(course)" class="btn btn-white btn-xs btn-info btn-round">
-                    大章
-                </button>&nbsp;
-                <button v-on:click="editContent(course)" class="btn btn-white btn-xs btn-info btn-round">
-                 内容
-                </button>&nbsp;
-                <button v-on:click="openSortModal(course)" class="btn btn-white btn-xs btn-info btn-round">
-                  排序
-                </button>&nbsp;
-                <button v-on:click="edit(course)" class="btn btn-white btn-xs btn-info btn-round">
-                    编辑
-                </button>&nbsp;
-                <button v-on:click="del(course.id)"  class="btn btn-white btn-xs btn-warning btn-round">
-                    删除
-                </button>
-              </p>
+            <p>{{course.summary}}</p>
+            <p>
+              <span class="badge badge-info">{{course.id}}</span>
+              <span class="badge badge-info">排序：{{course.sort}}</span>
+              <span class="badge badge-info">{{course.time | formatSecond}}</span>
+            </p>
+            <p>
+              <button v-on:click="toChapter(course)" class="btn btn-white btn-xs btn-info btn-round">
+                大章
+              </button>&nbsp;
+              <button v-on:click="toContent(course)" class="btn btn-white btn-xs btn-info btn-round">
+                内容
+              </button>&nbsp;
+              <button v-on:click="openSortModal(course)" class="btn btn-white btn-xs btn-info btn-round">
+                排序
+              </button>&nbsp;
+              <button v-on:click="edit(course)" class="btn btn-white btn-xs btn-info btn-round">
+                编辑
+              </button>&nbsp;
+              <button v-on:click="del(course.id)" class="btn btn-white btn-xs btn-warning btn-round">
+                删除
+              </button>
+            </p>
           </div>
         </div>
       </div>
     </div>
-    <!--表单-->
+
     <div id="form-modal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -80,9 +87,26 @@
           <div class="modal-body">
             <form class="form-horizontal">
               <div class="form-group">
-                <label class="col-sm-2 control-label">分类</label>
+                <label class="col-sm-2 control-label">
+                  分类
+                </label>
                 <div class="col-sm-10">
                   <ul id="tree" class="ztree"></ul>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">封面</label>
+                <div class="col-sm-10">
+                  <file v-bind:input-id="'image-upload'"
+                        v-bind:text="'上传封面'"
+                        v-bind:suffixs="['jpg', 'jpeg', 'png']"
+                        v-bind:use="FILE_USE.COURSE.key"
+                        v-bind:after-upload="afterUpload"></file>
+                  <div v-show="course.image" class="row">
+                    <div class="col-md-6">
+                      <img v-bind:src="course.image" class="img-responsive">
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -102,7 +126,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">概述</label>
                 <div class="col-sm-10">
-                  <input v-model="course.summary" class="form-control">
+                  <textarea v-model="course.summary" class="form-control"></textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -112,15 +136,9 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-2 control-label">价格(元)</label>
+                <label class="col-sm-2 control-label">价格（元）</label>
                 <div class="col-sm-10">
                   <input v-model="course.price" class="form-control">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label">封面</label>
-                <div class="col-sm-10">
-                  <input v-model="course.image" class="form-control">
                 </div>
               </div>
               <div class="form-group">
@@ -156,7 +174,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">顺序</label>
                 <div class="col-sm-10">
-                  <input v-model="course.sort" class="form-control" disabled="disabled">
+                  <input v-model="course.sort" class="form-control" disabled>
                 </div>
               </div>
             </form>
@@ -208,22 +226,32 @@
           <div class="modal-body">
             <form class="form-horizontal">
               <div class="form-group">
-                <lable class="control-label col-lg-3">当前排序</lable>
+                <label class="control-label col-lg-3">
+                  当前排序
+                </label>
                 <div class="col-lg-9">
-                  <input class="form-control" v-model="sort.oldSort" name="oldSort" disabled/>
+                  <input class="form-control" v-model="sort.oldSort" name="oldSort" disabled>
                 </div>
               </div>
               <div class="form-group">
-                <lable class="control-label col-lg-3">新排序</lable>
+                <label class="control-label col-lg-3">
+                  新排序
+                </label>
                 <div class="col-lg-9">
-                    <input class="form-control" v-model="sort.newSort" name="newSort" />
+                  <input class="form-control" v-model="sort.newSort" name="newSort">
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button v-on:click="updateSort()" type="button" class="btn btn-primary">保存</button>
+            <button type="button" class="btn btn-white btn-default btn-round" data-dismiss="modal">
+              <i class="ace-icon fa fa-times"></i>
+              取消
+            </button>
+            <button type="button" class="btn btn-white btn-info btn-round" v-on:click="updateSort()">
+              <i class="ace-icon fa fa-plus blue"></i>
+              更新排序
+            </button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -233,8 +261,9 @@
 
 <script>
   import Pagination from "../../components/pagination";
+  import File from "../../components/file";
   export default {
-    components: {Pagination},
+    components: {Pagination,File},
     name: "business-course",
     data: function() {
       return {
@@ -243,22 +272,23 @@
         COURSE_LEVEL: COURSE_LEVEL,
         COURSE_CHARGE: COURSE_CHARGE,
         COURSE_STATUS: COURSE_STATUS,
-        categorys:[],
-        tree:{},
-        saveContentLabel:'',
-        sort:{
-          id:"",
-          oldSort:0,
-          newSort:0
+        FILE_USE: FILE_USE,
+        categorys: [],
+        tree: {},
+        saveContentLabel: "",
+        sort: {
+          id: "",
+          oldSort: 0,
+          newSort: 0
         },
-        teachers:[]
+        teachers: [],
       }
     },
     mounted: function() {
       let _this = this;
+      _this.$refs.pagination.size = 5;
       _this.allCategory();
       _this.allTeacher();
-      _this.$refs.pagination.size = 5;
       _this.list(1);
       // sidebar激活样式方法一
       // this.$parent.activeSidebar("business-course-sidebar");
@@ -271,11 +301,12 @@
       add() {
         let _this = this;
         _this.course = {
-          sort:_this.$refs.pagination.total+1
+          sort: _this.$refs.pagination.total + 1
         };
         _this.tree.checkAllNodes(false);
         $("#form-modal").modal("show");
       },
+
       /**
        * 点击【编辑】
        */
@@ -295,6 +326,14 @@
         _this.$router.push("/business/chapter")
       },
       /**
+       * 点击【内容】
+       */
+      toContent(course) {
+        let _this = this;
+        SessionStorage.set(SESSION_KEY_COURSE, course);
+        _this.$router.push("/business/content");
+      },
+      /**
        * 列表查询
        */
       list(page) {
@@ -311,6 +350,7 @@
 
         })
       },
+
       /**
        * 点击【保存】
        */
@@ -506,18 +546,24 @@
           _this.teachers = resp.content;
           _this.initTree();
         })
+      },
+      afterUpload(resp){
+        let image=resp.content.path;
+        this.course.image=image;
       }
+
     }
   }
 </script>
-<style scoped>
-   .caption h3{
-     font-size: 20px;
-   }
 
-   @media(max-width: 1199px){
-     .caption h3{
-       font-size: 16px;
-     }
-   }
+<style scoped>
+  .caption h3 {
+    font-size: 20px;
+  }
+
+  @media (max-width: 1199px) {
+    .caption h3 {
+      font-size: 16px;
+    }
+  }
 </style>
