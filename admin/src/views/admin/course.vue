@@ -187,7 +187,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     <!--内容-->
-    <div id="course-content-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div id="course-content-modal" class="modal fade" tabindex="-1" role="dialog" style="overflow：auto;">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -195,6 +195,37 @@
             <h4 class="modal-title">内容编辑</h4>
           </div>
           <div class="modal-body">
+            <file v-bind:input-id="'content-file-upload'"
+                  v-bind:text="'上传文件1'"
+                  v-bind:suffixs="['mp4','jpg','png','jpeg']"
+                  v-bind:use="FILE_USE.COURSE.key"
+                  v-bind:after-upload="afterUploadContentFile"></file>
+            <dr/>
+            <table id="file-table" class="table  table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>名称</th>
+                <th>地址</th>
+                <th>大小</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(f,i) in files" v-bind:key="f.id">
+                <td>{{f.name}}</td>
+                <td>{{f.url}}</td>
+                <td>{{f.size | formatFileSize}}</td>
+                <td>
+                  <div class="hidden-sm hidden-xs btn-group">
+                    <button v-on:click="delFile(f)" class="btn btn-white btn-xs btn-warning">
+                      <i class="ace-icon fa fa-times red2">删除</i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
             <form class="form-horizontal">
               <div class="form-group">
                 <div class="col-sm-12">
@@ -282,6 +313,7 @@
           newSort: 0
         },
         teachers: [],
+        files:[],
       }
     },
     mounted: function() {
@@ -464,6 +496,9 @@
         //先清空历史文本；
         $("#content").summernote('code','');
         _this.saveContentLabel='';
+
+        //加载文件内容列表
+        _this.listContentFiles();
         Loading.show();
         _this.$ajax.get(process.env.VUE_APP_SERVER+'/business/admin/course/find-content/'+id).then((res)=>{
             Loading.hide();
@@ -485,6 +520,53 @@
               Toast.warning(resp.message);
             }
          });
+      },
+      /**
+       * 加载内容文件列表
+       */
+      listContentFiles() {
+        let _this = this;
+        _this.$ajax.get(process.env.VUE_APP_SERVER + '/business/admin/course-content-file/list/' + _this.course.id).then((response)=>{
+          let resp = response.data;
+          if (resp.success) {
+            _this.files = resp.content;
+          }
+        });
+      },
+
+      /**
+       * 上传内容文件后，保存内容文件记录
+       */
+      afterUploadContentFile(response) {
+        let _this = this;
+        console.log("开始保存文件记录");
+        let file = response.content;
+        file.courseId = _this.course.id;
+        file.url = file.path;
+        _this.$ajax.post(process.env.VUE_APP_SERVER + '/business/admin/course-content-file/save', file).then((response)=>{
+          let resp = response.data;
+          if (resp.success) {
+            Toast.success("上传文件成功");
+            _this.files.push(resp.content);
+          }
+        });
+
+      },
+
+      /**
+       * 删除内容文件
+       */
+      delFile(f) {
+        let _this = this;
+        Confirm.show("删除课程后不可恢复，确认删除？", function () {
+          _this.$ajax.delete(process.env.VUE_APP_SERVER + '/business/admin/course-content-file/delete/' + f.id).then((response)=>{
+            let resp = response.data;
+            if (resp.success) {
+              Toast.success("删除文件成功");
+              Tool.removeObj(_this.files, f);
+            }
+          });
+        });
       },
       /*课程内容保存*/
       saveContent(){

@@ -1,6 +1,5 @@
 package com.yxs.business.controller.admin;
 import com.yxs.server.dto.CourseContentFileDto;
-import com.yxs.server.dto.PageDto;
 import com.yxs.server.service.CourseContentFileService;
 import com.yxs.server.util.ResponseDto;
 import com.yxs.server.util.ValidatorUtil;
@@ -9,10 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
-@RequestMapping("/admin/courseContentFile")
+@RequestMapping("/admin/course-content-file")
 public class CourseContentFileController {
     private static final Logger Log = LoggerFactory.getLogger(CourseContentFileController.class);
     private static final String BUSINESS_NAME="课程内容文件";
@@ -21,11 +21,11 @@ public class CourseContentFileController {
     /**
      * 查询课程内容文件列表
      * */
-    @PostMapping("/list")
-    public ResponseDto list(@RequestBody PageDto pageDto){
+    @GetMapping("/list/{courseId}")
+    public ResponseDto list(@PathVariable String courseId){
         ResponseDto responseDto=new ResponseDto();
-        courseContentFileService.list(pageDto);
-        responseDto.setContent(pageDto);
+        List<CourseContentFileDto> list = courseContentFileService.list(courseId);
+        responseDto.setContent(list);
         return responseDto;
     }
     /**

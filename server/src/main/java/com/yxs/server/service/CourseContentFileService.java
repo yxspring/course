@@ -1,18 +1,15 @@
 package com.yxs.server.service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.yxs.server.domain.CourseContentFile;
 import com.yxs.server.domain.CourseContentFileExample;
 import com.yxs.server.dto.CourseContentFileDto;
-import com.yxs.server.dto.PageDto;
 import com.yxs.server.mapper.CourseContentFileMapper;
 import com.yxs.server.util.CopyUtil;
 import com.yxs.server.util.UuidUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,14 +21,13 @@ public class CourseContentFileService {
     /**
      * 列表查询
      */
-    public void list(PageDto pageDto) {
-        PageHelper.startPage(pageDto.getPage(), pageDto.getPageSize());
-        CourseContentFileExample courseContentFileExample = new CourseContentFileExample();
-        List<CourseContentFile> courseContentFileList = courseContentFileMapper.selectByExample(courseContentFileExample);
-        PageInfo<CourseContentFile> pageInfo = new PageInfo<>(courseContentFileList);
-        pageDto.setTotal(pageInfo.getTotal());
-        List<CourseContentFileDto> courseContentFileDtoList = CopyUtil.copy(courseContentFileList, CourseContentFileDto.class);
-        pageDto.setList(courseContentFileDtoList);
+
+    public List<CourseContentFileDto> list(String courseId) {
+        CourseContentFileExample example = new CourseContentFileExample();
+        CourseContentFileExample.Criteria criteria = example.createCriteria();
+        criteria.andCourseIdEqualTo(courseId);
+        List<CourseContentFile> fileList = courseContentFileMapper.selectByExample(example);
+        return CopyUtil.copy(fileList,CourseContentFileDto.class);
     }
 
     /**
