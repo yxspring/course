@@ -94,7 +94,7 @@
                         v-bind:use="FILE_USE.COURSE.key"
                         v-bind:after-upload="afterUpload"></file>
                   <div v-show="section.video" class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-9">
                       <video v-bind:src="section.video" controls="controls"></video>
                     </div>
                   </div>
@@ -273,3 +273,12 @@
     }
   }
 </script>
+
+
+<style scoped>
+  video {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+</style>
