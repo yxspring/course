@@ -209,7 +209,21 @@ CREATE TABLE `file` (
                         `updated_at` datetime DEFAULT NULL COMMENT '修改时间',
                         PRIMARY KEY (`id`),
                         unique key `path_unique` (`path`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment = "文件";
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='文件';
+
+
+
+/*课程内容文件*/
+drop table if exists `course_content_file`;
+CREATE TABLE `course_content_file` (
+                                       `id` char(8) NOT NULL COMMENT 'id',
+                                       `course_id` char(8) NOT NULL COMMENT '课程id',
+                                       `url` varchar(100) DEFAULT NULL COMMENT '地址',
+                                       `name` varchar(100) DEFAULT NULL COMMENT '文件名',
+                                       `size` int(11) DEFAULT NULL COMMENT '大小|字节b',
+                                       PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 comment='课程内容文件';
+
 
 
 
